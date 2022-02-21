@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include "tag.h"
 
 int main(int argc, char * argv[]) {
 	char op;
@@ -19,6 +20,7 @@ int main(int argc, char * argv[]) {
 		switch (op) {
 			case 'r':
 				std::cout << "r entered" << std::endl;
+				readFile("tag.txt");
 				break;
 			case 'p':
 				std::cout << "p entered" << std::endl;
@@ -41,4 +43,5 @@ int main(int argc, char * argv[]) {
 		
 		system("clear");
 	} while (op != 'q');
+	return 0;
 }
