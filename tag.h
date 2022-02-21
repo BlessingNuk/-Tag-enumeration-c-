@@ -5,7 +5,7 @@
 namespace NKRBLE001 {
 	struct TagStruct{
 		std::string tagName;
-		int totalNum;	
+		int totalNum = 0;	
 		std::string tagText;
 	};
 
@@ -13,6 +13,7 @@ namespace NKRBLE001 {
 	void readFile(std::string filename);
 	void processLine(std::string line);
 	void printVector(std::vector<TagStruct> tagvec);
+	void insertTag(TagStruct tag);
 	
 }
 #endif

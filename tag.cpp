@@ -17,14 +17,14 @@ void NKRBLE001::readFile(std::string filename){
 	
 	while (getline(infile, s)) {
 		//getline(infile, s); //read from file
-		std::cout << s << std::endl;
-		outfile << s << std::endl;
+		std::cout << s << std::endl; //print out
+		outfile << s << std::endl; //print to output file
 		processLine(s);
 	}
 	
 	infile.close();
 	outfile.close();
-	printVector(tagsVector);
+	printVector(tagsVector); //print out
 }
 
 void NKRBLE001::processLine(std::string line) {
@@ -43,12 +43,30 @@ void NKRBLE001::processLine(std::string line) {
 	tagData.tagText = tText;
 	//std::cout << tagData.tagName << ':' << tagData.tagText << std::endl;
 	
-	tagsVector.push_back(tagData);
+	//tagsVector.push_back(tagData);
+	insertTag(tagData);
 }
 
 void NKRBLE001::printVector(std::vector<TagStruct> tagvec) {
 	for (int i = 0; i < tagvec.size(); i++) {
-		std::cout << tagvec[i].tagName << ' ' << tagvec[i].tagText << std::endl;
+		std::cout << '\"'<< tagvec[i].tagName << "\"," << tagvec[i].totalNum << ",\"" << tagvec[i].tagText<<"\"\n";
 	}
 }
+
+void NKRBLE001::insertTag(TagStruct tag) {
+	bool found = false;
+	for (int i = 0; i < tagsVector.size(); i++) {
+		if (tagsVector[i].tagName == tag.tagName) { //if tag is already in vector, then increment the total number of that tag, and concatinate text
+				found = true;
+				tagsVector[i].totalNum++;
+				tagsVector[i].tagText = tagsVector[i].tagText + ':' + tag.tagText;
+				break;
+			}
+	}
+	if (found == false) { // if the tag is not in the vector, then add tag in the vector
+		tag.totalNum = 1;
+		tagsVector.push_back(tag);
+	}
+}
+
 
