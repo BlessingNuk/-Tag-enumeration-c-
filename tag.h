@@ -1,14 +1,18 @@
 #ifndef TAG_H
 #define TAG_H
+#include <vector>
 
-struct TagStruct{
-	std::string tagName;
-	int totalNum;	
-	std::string tagText;
-};
+namespace NKRBLE001 {
+	struct TagStruct{
+		std::string tagName;
+		int totalNum;	
+		std::string tagText;
+	};
 
-//vector<TagStruct> tagsVector; //tagsVector.push_back(x);
 
-void readFile(std::string filename);
-void processLine(std::string line);
+	void readFile(std::string filename);
+	void processLine(std::string line);
+	void printVector(std::vector<TagStruct> tagvec);
+	
+}
 #endif

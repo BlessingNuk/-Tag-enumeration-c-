@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "tag.h"
 
+using namespace NKRBLE001;
 int main(int argc, char * argv[]) {
 	char op;
 	
