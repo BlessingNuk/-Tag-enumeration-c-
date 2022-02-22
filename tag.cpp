@@ -26,7 +26,7 @@ void NKRBLE001::readFile(std::string filename){
 
 }
 
-/*
+
 void NKRBLE001::processLine(std::string line) {
 	
 	if (line.length() != 0) {
@@ -59,7 +59,7 @@ void NKRBLE001::processLine(std::string line) {
 		processLine(line);
 	}
 	
-}*/
+}
 
 /*
 void NKRBLE001::printTags() {
@@ -89,7 +89,8 @@ void NKRBLE001::printTagInfo(std::string tagName){
 	}else{
 		std::cout << "Tag not found\n";
 	}
-}*/	
+}*/
+
 int NKRBLE001::searchTag(std::string tagName){
 	for (int i = 0; i < tagsVector.size(); i++) {
 		if (tagsVector[i].tagName == tagName) { //if tag is already in vector, then increment the total number of that tag, and concatinate text
