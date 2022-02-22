@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
 #include "tag.h"
 
 using namespace NKRBLE001;

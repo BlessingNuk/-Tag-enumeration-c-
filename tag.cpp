@@ -2,10 +2,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 #include "tag.h"
 
 using namespace NKRBLE001;
 std::vector<TagStruct> tagsVector; //tagsVector.push_back(x); 
+std::stack<TagStruct> S;
 
 void NKRBLE001::readFile(std::string filename){
 	std::string s, longstr;
@@ -22,7 +24,11 @@ void NKRBLE001::readFile(std::string filename){
 	
 	infile.close();
 	std::cout << filename << " is being processed\n";
-	processLine(longstr);
+	if (filename.find("nested") == -1)
+		processLine(longstr);
+	else
+		processNested(longstr);
+
 }
 
 
@@ -60,7 +66,6 @@ void NKRBLE001::processLine(std::string line) {
 	
 }
 
-
 void NKRBLE001::printTags() {
 	for (int i = 0; i < tagsVector.size(); i++) {
 		std::cout << tagsVector[i].tagName << std::endl;
@@ -97,6 +102,56 @@ int NKRBLE001::searchTag(std::string tagName){
 	}
 	return -1;
 }
+
+
+int NKRBLE001::processNested(std::string s){
+	if (s == "\0"){ return 0;}
+	std::cout << s << std::endl;
+	TagStruct tagData;
+	int start, end, index;
+	std::string tagName, tagText;
+
+	if(s[0] != '<') {
+		start = s.find('<');
+		S.top().tagText = S.top().tagText + ' ' + s.substr(0, start);
+		s = s.substr(start);
+	}
+	
+	if (s[1] != '/') {
+			end = s.find('>');
+			tagData.tagName = s.substr(1, end - 1);
+			s = s.substr(end+1);
+			//std::cout << s << std::endl;
+			start = s.find('<');
+			tagData.tagText = s.substr(0, start);
+			//std::cout << tagText << std::endl;
+			S.push(tagData);
+			s = s.substr(start);
+	} 
+	else { //it is a closing tag
+		index = searchTag(S.top().tagName);
+		if (index >= 0) {
+			tagsVector[index].tagText = tagsVector[index].tagText + ':' + S.top().tagText;
+			tagsVector[index].totalNum++;
+		}else{
+			tagData.totalNum = 1;
+			tagData.tagName = S.top().tagName;
+			tagData.tagText = S.top().tagText;
+			tagsVector.push_back(tagData);
+		}
+		
+		S.pop();
+		start = s.find('>');
+		s = s.substr(start+1);
+	}
+
+	processNested(s);
+
+}
+
+
+
+
 
 
 
