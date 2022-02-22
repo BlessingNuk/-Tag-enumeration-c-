@@ -14,16 +14,15 @@ void NKRBLE001::readFile(std::string filename){
 	
 	if (!infile) {
 		std::cout << "Incorrect file entered";
-		}
+	}
+	
 	while (getline(infile, s)) {
-		longstr = longstr + s;
+		longstr = longstr + s; //Convert all the lines in the file into one long string
 	}
 	
 	infile.close();
 	std::cout << filename << " is being processed\n";
 	processLine(longstr);
-	//std::cout << longstr;
-
 }
 
 
@@ -36,12 +35,12 @@ void NKRBLE001::processLine(std::string line) {
 	
 		pos = line.find('>');
 		tName = line.substr(1, pos - 1);
-		closetag = line.find("</"+tName+">");
+		closetag = line.find("</"+tName+">"); //find index of the closing tag, assuming that all tags have closing tags and not nested
 		tText = line.substr(pos+1, closetag - (pos+1));
 		//std::cout << tText;
 		//tText = line.substr(pos+1, line.rfind('<') - (pos+1));
 		
-		index = searchTag(tName);
+		index = searchTag(tName); //search for tag in vector
 		if (index >= 0) {
 			tagsVector[index].tagText = tagsVector[index].tagText + ':' + tText;
 			tagsVector[index].totalNum++;
@@ -63,7 +62,6 @@ void NKRBLE001::processLine(std::string line) {
 
 
 void NKRBLE001::printTags() {
-	bool file = false;
 	for (int i = 0; i < tagsVector.size(); i++) {
 		std::cout << tagsVector[i].tagName << std::endl;
 	}
