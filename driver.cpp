@@ -17,20 +17,25 @@ int main(int argc, char * argv[]) {
 		
 		std::cin >> op;
 		system("clear"); //clear the shell command to improve visibility
-		
+		std::string filename, tagName;
 		switch (op) {
 			case 'r':
-				std::cout << "r entered" << std::endl;
-				readFile("tag.txt");
+				std::cout << "Enter the file name: " << std::endl;
+				std::cin >> filename;
+				readFile(filename);
 				break;
 			case 'p':
-				std::cout << "p entered" << std::endl;
+				std::cout << "The Tags are: " << std::endl;
+				printTags();
 				break;
 			case 'd':
-				std::cout << "d entered" << std::endl;
+				writeFile("out.txt");
+				std::cout << "Tags written in out.txt file" << std::endl;
 				break;
 			case 'l':
-				std::cout << "l entered" << std::endl;
+				std::cout << "Enter the tag name:" << std::endl;
+				std::cin >> tagName;
+				printTagInfo(tagName);
 				break;
 			default:
 				if (op != 'q') 

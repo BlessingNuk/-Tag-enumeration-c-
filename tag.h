@@ -12,8 +12,11 @@ namespace NKRBLE001 {
 
 	void readFile(std::string filename);
 	void processLine(std::string line);
-	void printVector(std::vector<TagStruct> tagvec);
-	void insertTag(TagStruct tag);
+	void printTags();
+	void writeFile(std::string filename);
+	void printTagInfo(std::string tagName);
+	int searchTag(std::string tagName);
+	
 	
 }
 #endif
