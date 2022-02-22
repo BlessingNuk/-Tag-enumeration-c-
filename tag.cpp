@@ -61,7 +61,7 @@ void NKRBLE001::processLine(std::string line) {
 	
 }
 
-/*
+
 void NKRBLE001::printTags() {
 	bool file = false;
 	for (int i = 0; i < tagsVector.size(); i++) {
@@ -89,7 +89,7 @@ void NKRBLE001::printTagInfo(std::string tagName){
 	}else{
 		std::cout << "Tag not found\n";
 	}
-}*/
+}
 
 int NKRBLE001::searchTag(std::string tagName){
 	for (int i = 0; i < tagsVector.size(); i++) {
