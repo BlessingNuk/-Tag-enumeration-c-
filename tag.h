@@ -1,6 +1,6 @@
 #ifndef TAG_H
 #define TAG_H
-#include <vector>
+
 
 namespace NKRBLE001 {
 	struct TagStruct{
@@ -17,7 +17,7 @@ namespace NKRBLE001 {
 	void writeFile(std::string filename);
 	void printTagInfo(std::string tagName);
 	int searchTag(std::string tagName);
-	
+	std::string trim(std::string line);
 	
 }
 #endif

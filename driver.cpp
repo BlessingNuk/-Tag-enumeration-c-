@@ -23,15 +23,15 @@ int main(int argc, char * argv[]) {
 			case 'r':
 				std::cout << "Enter the file name: " << std::endl;
 				std::cin >> filename;
-				readFile(filename);
+				readFile("Examples/" +filename);
 				break;
 			case 'p':
 				std::cout << "The Tags are: " << std::endl;
 				printTags();
 				break;
 			case 'd':
-				writeFile("out.txt");
-				std::cout << "Tags written in out.txt file" << std::endl;
+				writeFile("tag.txt");
+				std::cout << "Tags written in tag.txt file" << std::endl;
 				break;
 			case 'l':
 				std::cout << "Enter the tag name:" << std::endl;
