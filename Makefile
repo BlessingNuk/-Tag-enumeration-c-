@@ -16,4 +16,4 @@ run: tag
 	./tag
 
 clean:
-	rm -f *.o tag
+	rm -f *.o tag tag.txt

@@ -7,9 +7,15 @@
 #include "tag.h"
 
 using namespace NKRBLE001;
-std::vector<TagStruct> tagsVector; //tagsVector.push_back(x); 
+std::vector<TagStruct> tagsVector;
 std::stack<TagStruct> S;
 
+/**
+ * Converts text in a given file into one long string
+ * if file is nested call processNested() else processline()
+ * 
+ * @param filename, contains the name of the file to be processed
+ */
 void NKRBLE001::readFile(std::string filename){
 	tagsVector.clear();
 	std::string s, longstr;
@@ -26,14 +32,20 @@ void NKRBLE001::readFile(std::string filename){
 	
 	infile.close();
 	std::cout << filename << " is being processed\n";
-	if (filename.find("nested") == -1)
+	
+	if (filename.find("nested") == -1) //check if file is nested
 		processLine(longstr);
 	else
 		processNested(longstr);
 
 }
 
-
+/**
+ * Takes string and itentifies tags and creats a TagStruct object for each tag
+ * adds the TagStruct objects in a vector tagsVector
+ * 
+ * @param line, string to be processed
+ * */
 void NKRBLE001::processLine(std::string line) {
 	
 	if (line.length() != 0) {
@@ -65,14 +77,21 @@ void NKRBLE001::processLine(std::string line) {
 	
 }
 
+/**
+ * Prints all the tags to the console 
+ */
 void NKRBLE001::printTags() {
 	for (int i = 0; i < tagsVector.size(); i++) {
-		std::cout << tagsVector[i].tagName << std::endl;
+		std::cout << '<' << tagsVector[i].tagName << '>' << std::endl;
 	}
 	
 }
 
-
+/**
+ * Writes the tags' information into a file
+ * 
+ * @param filename, file to write to
+ */
 void NKRBLE001::writeFile(std::string filename){
 	std::ofstream outfile;
 	outfile.open(filename);
@@ -82,25 +101,45 @@ void NKRBLE001::writeFile(std::string filename){
 	outfile.close();
 }
 
+/**
+ * Prints the name of the tag, tag count and tag text to the console
+ * 
+ * @param tagName, the name of the tag to print
+ */
 void NKRBLE001::printTagInfo(std::string tagName){
 	int index = searchTag(tagName);
 	if (index >= 0) {
-		std::cout << '\"'<< tagsVector[index].tagName << "\"," << tagsVector[index].totalNum << ",\"" << tagsVector[index].tagText<<"\"\n";
+		std::cout <<"Tag name: \""<< tagsVector[index].tagName;
+		std::cout << "\", Tag count: " << tagsVector[index].totalNum;
+		std::cout << ", Tag text: \"" << tagsVector[index].tagText<<"\"\n";
 	}else{
 		std::cout << "Tag not found\n";
 	}
 }
 
+/**
+ * Search the tag in the vector tagsVector
+ * 
+ * @param tagName, name of tag to search
+ * @return `i`, index of the tag if found in the vector, -1 if tag not found
+ */
 int NKRBLE001::searchTag(std::string tagName){
 	for (int i = 0; i < tagsVector.size(); i++) {
-		if (tagsVector[i].tagName == tagName) { //if tag is already in vector, then increment the total number of that tag, and concatinate text
+		if (tagsVector[i].tagName == tagName) { 
 			return i;
 		}
 	}
 	return -1;
 }
 
-
+/**
+ * Called when the file has nested tags
+ * Takes string and itentifies tags and creats a TagStruct object for each tag
+ * Adds the TagStruct objects in a vector tagsVector
+ * 
+ * @param s, string to be processed
+ * @return 0 when end of string s is reached i.e s=="\0"
+ * */
 int NKRBLE001::processNested(std::string s){
 	if (s == "\0"){ return 0;}
 	TagStruct tagData;
@@ -113,14 +152,12 @@ int NKRBLE001::processNested(std::string s){
 		s = s.substr(start);
 	}
 	
-	if (s[1] != '/') {
+	if (s[1] != '/') { //If not a closing tag
 			end = s.find('>');
 			tagData.tagName = s.substr(1, end - 1);
 			s = s.substr(end+1);
-			//std::cout << s << std::endl;
 			start = s.find('<');
 			tagData.tagText = trim(s.substr(0, start));
-			//std::cout << tagText << std::endl;
 			S.push(tagData);
 			s = s.substr(start);
 	} 
@@ -145,6 +182,12 @@ int NKRBLE001::processNested(std::string s){
 
 }
 
+/**
+ * Removes tabs and newline characters from a string
+ * 
+ * @param line, string to trim
+ * @return newline, a new string with no '\t' and '\n'
+ */
 std::string NKRBLE001::trim(std::string line) {
 	char unwanted = '\t';
 	std::string newline;

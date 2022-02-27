@@ -1,0 +1,35 @@
+# Tags Program
+***
+
+This is a program that reads a file with XML-like tags and processes the data according to the option the user enters.
+
+## Table of contents
+1. [Installation](#installation)
+
+## Installation
+
+Fisrt make sure you have the following files in the same directory:
+* Makefile : For automated compilation
+
+* driver.cpp : Has main method with a switch statement that performs a certain task when a particular option is selected. 
+
+* Tags.cpp : Has the logic of the whole program. It has different functions that are to be called in deriver.cpp file when a certain option is selected.
+
+* Tags.h : Has structure and all function definations used in the program
+
+* *.txt: These are the files used for testing. If tags are nested, include 'nested' in the file name e.g long_nested.txt.
+
+To compile and run the the program:
+```
+$ make
+$ make run
+
+```
+Enter one of the options and hit "Enter":
+
+* r : reads the file (Note: will have to enter file name after hiting "Enter")
+* p : outputs the different tags <TAG> to the terminal
+* d : outputs the tag data to a file "tag,txt"
+* l : output tag data to terminal -> Tag name: x , Tag count: y , Tag text: z 
+* q : closes the program
+
