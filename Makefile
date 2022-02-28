@@ -7,10 +7,10 @@ LIB= -lm -lX
 #build rules
 
 tag.o: tag.cpp driver.cpp tag.h
-	$(CC) $(CCFLAGS) tag.cpp driver.cpp -c
+	$(CC) tag.cpp driver.cpp -c
 
 tag: tag.o driver.o
-	$(CC) $(CCFLAGS) tag.o driver.o -o tag
+	$(CC) tag.o driver.o -o tag
 
 run: tag
 	./tag

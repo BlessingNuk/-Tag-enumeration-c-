@@ -12,7 +12,7 @@ namespace NKRBLE001 {
 
 	void readFile(std::string filename);
 	void processLine(std::string line);
-	int processNested(std::string nestedFile);
+	void processNested(std::string nestedFile);
 	void printTags();
 	void writeFile(std::string filename);
 	void printTagInfo(std::string tagName);
